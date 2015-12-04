@@ -12,25 +12,41 @@ namespace TYPO3\JobqueueBeanstalkd\Tests\Functional\Queue;
  *                                                                            */
 
 use Pheanstalk\Pheanstalk;
-use TYPO3\Flow\Configuration\ConfigurationManager;
 use TYPO3\JobqueueBeanstalkd\Queue\BeanstalkdQueue;
 use TYPO3\Jobqueue\Queue\Message;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Functional test for BeanstalkdQueue
  */
 class BeanstalkdQueueTest extends \TYPO3\CMS\Core\Tests\FunctionalTestCase
 {
+    const QUEUE_NAME = 'TestQueue';
+
+    protected $coreExtensionsToLoad = array('extbase');
+    protected $testExtensionsToLoad = array('typo3conf/ext/jobqueue', 'typo3conf/ext/jobqueue_beanstalkd');
 
     /**
-     * @var BeanstalkdQueue
+     * @var TYPO3\CMS\Extbase\Object\ObjectManager
+     */
+    protected $objectManager;
+
+    /**
+     * @var TYPO3\JobqueueBeanstalkd\Queue\BeanstalkdQueue
      */
     protected $queue;
 
-    /**
-     * @var Pheanstalk
-     */
-    protected $client;
+    // {{{ Bugfix phpunit
+    protected $disallowChangesToGlobalState = null;
+
+    public function setDisallowChangesToGlobalState($disallowChangesToGlobalState)
+    {
+        if (is_null($this->disallowChangesToGlobalState) && is_bool($disallowChangesToGlobalState)) {
+            $this->disallowChangesToGlobalState = $disallowChangesToGlobalState;
+        }
+    }
+    // }}}
 
     /**
      * Set up dependencies
@@ -38,39 +54,34 @@ class BeanstalkdQueueTest extends \TYPO3\CMS\Core\Tests\FunctionalTestCase
     public function setUp()
     {
         parent::setUp();
-        $configurationManager = $this->objectManager->get('TYPO3\Flow\Configuration\ConfigurationManager');
-        $settings = $configurationManager->getConfiguration(ConfigurationManager::CONFIGURATION_TYPE_SETTINGS, 'TYPO3.Jobqueue.Beanstalkd');
-        if (!isset($settings['testing']['enabled']) || $settings['testing']['enabled'] !== true) {
-            $this->markTestSkipped('beanstalkd is not configured (TYPO3.Jobqueue.Beanstalkd.testing.enabled != true)');
-        }
+        $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 
-        $queueName = 'Test-queue';
-        $this->queue = new BeanstalkdQueue($queueName, $settings['testing']);
+        // $a = new BeanstalkdQueue();
 
-        $clientOptions = $settings['testing']['client'];
-        $host = isset($clientOptions['host']) ? $clientOptions['host'] : '127.0.0.1';
-        $port = isset($clientOptions['port']) ? $clientOptions['port'] : '11300';
-        $this->client = new Pheanstalk($host, $port);
+        $this->queue = $this->objectManager->get(BeanstalkdQueue::class, self::QUEUE_NAME, null);
 
-            // flush queue:
+       /** @var Pheanstalk\Pheanstalk $client */
+        $client = $this->queue->getClient();
+
+        // flush queue:
         try {
             while (true) {
-                $job = $this->client->peekDelayed($queueName);
-                $this->client->delete($job);
+                $job = $client->peekDelayed(self::QUEUE_NAME);
+                $client->delete($job);
             }
         } catch (\Exception $e) {
         }
         try {
             while (true) {
-                $job = $this->client->peekBuried($queueName);
-                $this->client->delete($job);
+                $job = $client->peekBuried(self::QUEUE_NAME);
+                $client->delete($job);
             }
         } catch (\Exception $e) {
         }
         try {
             while (true) {
-                $job = $this->client->peekReady($queueName);
-                $this->client->delete($job);
+                $job = $client->peekReady(self::QUEUE_NAME);
+                $client->delete($job);
             }
         } catch (\Exception $e) {
         }

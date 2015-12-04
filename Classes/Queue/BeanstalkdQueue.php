@@ -2,7 +2,6 @@
 
 namespace TYPO3\JobqueueBeanstalkd\Queue;
 
-use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\Jobqueue\Queue\Message;
 use TYPO3\Jobqueue\Queue\QueueInterface;
 use Pheanstalk\Exception\ServerException;
@@ -13,20 +12,21 @@ class BeanstalkdQueue implements QueueInterface
 {
     /**
      * @var Pheanstalk\Pheanstalk
-     * @inject
      */
     protected $client = null;
 
     protected $name;
 
+    protected $options = [
+        'host' => '127.0.0.1',
+        'port' => PheanstalkInterface::DEFAULT_PORT,
+        'connectTimeout' => null
+    ];
+
     public function __construct($name, $options)
     {
         $this->name = $name;
-        $this->options = ArrayUtility::mergeRecursiveWithOverrule([
-            'host' => '127.0.0.1',
-            'port' => PheanstalkInterface::DEFAULT_PORT,
-            'connectTimeout' => null
-        ], (array) $options, false, false);
+        $this->options = (array) $options + $this->options;
 
         $this->client = new Pheanstalk($this->options['host'], $this->options['port'], $this->options['connectTimeout']);
     }
@@ -120,6 +120,11 @@ class BeanstalkdQueue implements QueueInterface
         return $this->name;
     }
 
+    public function getClient()
+    {
+        return $this->client;
+    }
+
     /**
      * Encode a message
      *
@@ -132,7 +137,6 @@ class BeanstalkdQueue implements QueueInterface
     protected function encodeMessage(Message $message)
     {
         $value = json_encode($message->toArray());
-        $message->setOriginalValue($value);
         return $value;
     }
 
