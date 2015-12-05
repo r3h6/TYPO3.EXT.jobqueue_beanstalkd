@@ -2,12 +2,28 @@
 
 namespace TYPO3\JobqueueBeanstalkd\Queue;
 
+/*                                                                        *
+ * This script is part of the TYPO3 project - inspiring people to share!  *
+ *                                                                        *
+ * TYPO3 is free software; you can redistribute it and/or modify it under *
+ * the terms of the GNU General Public License version 3 as published by  *
+ * the Free Software Foundation.                                          *
+ *                                                                        *
+ * This script is distributed in the hope that it will be useful, but     *
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHAN-    *
+ * TABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General      *
+ * Public License for more details.                                       *
+ *                                                                        */
+
 use TYPO3\Jobqueue\Queue\Message;
 use TYPO3\Jobqueue\Queue\QueueInterface;
 use Pheanstalk\Exception\ServerException;
 use Pheanstalk\Pheanstalk;
 use Pheanstalk\PheanstalkInterface;
 
+/**
+ * BeanstalkdQueue
+ */
 class BeanstalkdQueue implements QueueInterface
 {
     /**
@@ -15,14 +31,25 @@ class BeanstalkdQueue implements QueueInterface
      */
     protected $client = null;
 
+    /**
+     * @var string
+     */
     protected $name;
 
+    /**
+     * @var array
+     */
     protected $options = [
         'host' => '127.0.0.1',
         'port' => PheanstalkInterface::DEFAULT_PORT,
         'connectTimeout' => null
     ];
-
+    /**
+     * Constructor
+     *
+     * @param string $name
+     * @param array  $options
+     */
     public function __construct($name, $options)
     {
         $this->name = $name;
@@ -31,6 +58,9 @@ class BeanstalkdQueue implements QueueInterface
         $this->client = new Pheanstalk($this->options['host'], $this->options['port'], $this->options['connectTimeout']);
     }
 
+    /**
+     * @param Message $message
+     */
     public function publish(Message $message)
     {
         $encodedMessage = $this->encodeMessage($message);
@@ -39,6 +69,10 @@ class BeanstalkdQueue implements QueueInterface
         $message->setState(Message::STATE_PUBLISHED);
     }
 
+    /**
+     * @param int $timeout
+     * @return Message
+     */
     public function waitAndTake($timeout = null)
     {
         if ($timeout === null) {
@@ -55,6 +89,10 @@ class BeanstalkdQueue implements QueueInterface
         return $message;
     }
 
+    /**
+     * @param int $timeout
+     * @return Message
+     */
     public function waitAndReserve($timeout = null)
     {
         if ($timeout === null) {
@@ -69,6 +107,9 @@ class BeanstalkdQueue implements QueueInterface
         return $message;
     }
 
+    /**
+     * @param Message $message
+     */
     public function finish(Message $message)
     {
         $messageIdentifier = $message->getIdentifier();
@@ -78,6 +119,10 @@ class BeanstalkdQueue implements QueueInterface
         return true;
     }
 
+    /**
+     * @param int $limit
+     * @return array<\TYPO3\Jobqueue\Queue\Message>
+     */
     public function peek($limit = 1)
     {
         if ($limit !== 1) {
@@ -98,28 +143,43 @@ class BeanstalkdQueue implements QueueInterface
         return array($message);
     }
 
+    /**
+     * @return array
+     */
     public function getMessage($identifier)
     {
         $pheanstalkJob = $this->client->peek($identifier);
         return $this->decodeMessage($pheanstalkJob->getData());
     }
 
+    /**
+     * @return int
+     */
     public function count()
     {
         $clientStats = $this->client->statsTube($this->name);
         return (integer)$clientStats['current-jobs-ready'];
     }
 
+    /**
+     * @return array
+     */
     public function getOptions()
     {
         return $this->options;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * @return Pheanstalk\Pheanstalk
+     */
     public function getClient()
     {
         return $this->client;
