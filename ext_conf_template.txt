@@ -3,6 +3,3 @@ host =
 
 # cat=jobqueue//20 type=text; label=Beanstalkd port
 port =
-
-# cat=jobqueue//20 type=int+; label=Beanstalkd connect timeout
-connectTimeout =
