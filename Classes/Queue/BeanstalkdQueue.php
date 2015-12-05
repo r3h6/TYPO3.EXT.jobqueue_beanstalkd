@@ -42,7 +42,7 @@ class BeanstalkdQueue implements QueueInterface
     protected $options = [
         'host' => '127.0.0.1',
         'port' => PheanstalkInterface::DEFAULT_PORT,
-        'connectTimeout' => null
+        'timeout' => null
     ];
     /**
      * Constructor
@@ -55,7 +55,7 @@ class BeanstalkdQueue implements QueueInterface
         $this->name = $name;
         $this->options = (array) $options + $this->options;
 
-        $this->client = new Pheanstalk($this->options['host'], $this->options['port'], $this->options['connectTimeout']);
+        $this->client = new Pheanstalk($this->options['host'], $this->options['port'], $this->options['timeout']);
     }
 
     /**
@@ -76,7 +76,7 @@ class BeanstalkdQueue implements QueueInterface
     public function waitAndTake($timeout = null)
     {
         if ($timeout === null) {
-            $timeout = $this->options['connectTimeout'];
+            $timeout = $this->options['timeout'];
         }
         $pheanstalkJob = $this->client->reserveFromTube($this->name, $timeout);
         if ($pheanstalkJob === null || $pheanstalkJob === false) {
@@ -96,7 +96,7 @@ class BeanstalkdQueue implements QueueInterface
     public function waitAndReserve($timeout = null)
     {
         if ($timeout === null) {
-            $timeout = $this->options['connectTimeout'];
+            $timeout = $this->options['timeout'];
         }
         $pheanstalkJob = $this->client->reserveFromTube($this->name, $timeout);
         if ($pheanstalkJob === null || $pheanstalkJob === false) {
