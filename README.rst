@@ -12,4 +12,4 @@ Implements concrete Queue for the beanstalkd workqueue. Requires the exension *j
 Configuration
 -------------
 
-In order to use this queue you should set the *defaultQueue* to ``TYPO3\\JobqueueBeanstalkd\\Queue\\BeanstalkdQueue`` in the *jobqueue* extension settings.
+In order to use this queue you should set the *defaultQueue* to ``TYPO3\JobqueueBeanstalkd\Queue\BeanstalkdQueue`` in the *jobqueue* extension settings.
