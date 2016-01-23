@@ -10,14 +10,14 @@
         "emConf": {
             "category": "services",
             "custom_category": "",
-            "dependsOn": "typo3 => 7.6.0-7.6.99\njobqueue => 0.0.1\n",
+            "dependsOn": "typo3 => 7.6.0-7.6.99\njobqueue => 1.0.0\n",
             "disableLocalization": true,
             "disableVersioning": true,
             "skipGenerateDocumentationTemplate": true,
             "sourceLanguage": "en",
             "state": "beta",
             "targetVersion": "7.6.0-7.6.99",
-            "version": "0.0.1"
+            "version": "1.0.0"
         },
         "extensionKey": "jobqueue_beanstalkd",
         "name": "Beanstalkd jobqueue",
