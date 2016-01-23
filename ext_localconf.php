@@ -9,3 +9,7 @@ if (isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY])) {
 } else {
     $GLOBALS['TYPO3_CONF_VARS']['EXT']['jobqueue']['TYPO3\\JobqueueBeanstalkd\\Queue\\BeanstalkdQueue'] = [];
 }
+
+if (!class_exists('Pheanstalk\\Pheanstalk', true)) {
+    require_once \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('EXT:' . $_EXTKEY . '/Resources/Private/Vendors/pheanstalk.phar');
+}
