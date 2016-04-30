@@ -42,7 +42,7 @@ class BeanstalkdQueue implements QueueInterface
     protected $options = [
         'host' => '127.0.0.1',
         'port' => PheanstalkInterface::DEFAULT_PORT,
-        'timeout' => null
+        'timeout' => null,
     ];
     /**
      * Constructor
@@ -64,7 +64,7 @@ class BeanstalkdQueue implements QueueInterface
     public function publish(Message $message)
     {
         $encodedMessage = $this->encodeMessage($message);
-        $messageIdentifier = $this->client->putInTube($this->name, $encodedMessage);
+        $messageIdentifier = $this->client->putInTube($this->name, $encodedMessage, $message->getDelay());
         $message->setIdentifier($messageIdentifier);
         $message->setState(Message::STATE_PUBLISHED);
     }

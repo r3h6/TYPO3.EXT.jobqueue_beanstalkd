@@ -1,10 +1,17 @@
+﻿.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+
 .. _start:
 
-*******************
-Jobqueue Beanstalkd
-*******************
+=============
+Documentation
+=============
 
-Implements concrete Queue for the beanstalkd workqueue. Requires the exension *jobqueue* to be installed.
+Job queues for TYPO3. Implements concrete queue for the beanstalkd workqueue. Requires the exension *jobqueue* to be installed.
+
 
 Configuration
 -------------
