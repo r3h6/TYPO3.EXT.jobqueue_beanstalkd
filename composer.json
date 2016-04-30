@@ -1,11 +1,12 @@
 {
     "name": "r3h6/jobqueue_beanstalkd",
     "type": "typo3-cms-extension",
-    "description": "Beanstalkd implementation of job queues for TYPO3.",
+    "description": "Beanstalkd implementation of job queues for TYPO3 CMS.",
     "keywords": [
         "TYPO3",
         "extension",
-        "jobqueue"
+        "jobqueue",
+        "beanstalkd"
     ],
     "authors": [
         {

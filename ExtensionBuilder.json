@@ -6,7 +6,7 @@
         "backendModules": [
 
         ],
-        "description": "Beanstalkd implementation for the jobqueue.",
+        "description": "Beanstalkd implementation of job queues for TYPO3 CMS.",
         "emConf": {
             "category": "services",
             "custom_category": "",
