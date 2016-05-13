@@ -12,6 +12,8 @@ Documentation
 
 Job queues for TYPO3 CMS. Implements concrete queue for the beanstalkd workqueue. Requires the exension *jobqueue* to be installed.
 
+This extension is a backport of the flow package Flowpack/jobqueue-beanstalkd.
+
 
 Configuration
 -------------

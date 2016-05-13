@@ -11,8 +11,8 @@
  ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = array(
-	'title' => 'Beanstalkd jobqueue',
-	'description' => 'Beanstalkd implementation for the jobqueue.',
+	'title' => 'Jobqueue Beanstalkd',
+	'description' => 'Beanstalkd implementation of job queues for TYPO3 CMS.',
 	'category' => 'services',
 	'author' => 'R3 H6',
 	'author_email' => 'r3h6@outlook.com',
@@ -21,7 +21,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'uploadfolder' => '0',
 	'createDirs' => '',
 	'clearCacheOnLoad' => 0,
-	'version' => '0.0.1',
+	'version' => '1.0.0',
 	'constraints' => array(
 		'depends' => array(
 			'typo3' => '7.6.0-7.6.99',

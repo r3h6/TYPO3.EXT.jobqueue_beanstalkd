@@ -20,7 +20,7 @@
             "version": "1.0.0"
         },
         "extensionKey": "jobqueue_beanstalkd",
-        "name": "Beanstalkd jobqueue",
+        "name": "Jobqueue Beanstalkd",
         "originalExtensionKey": "",
         "originalVendorName": "",
         "persons": [
