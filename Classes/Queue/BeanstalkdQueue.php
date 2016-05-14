@@ -78,9 +78,6 @@ class BeanstalkdQueue implements QueueInterface
         if ($timeout === null) {
             $timeout = $this->options['timeout'];
         }
-        /** @var \TYPO3\CMS\Core\Log\Logger $logger */
-        $logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Log\LogManager::class)->getLogger(__CLASS__);
-        $logger->info("B $timeout");
         $pheanstalkJob = $this->client->reserveFromTube($this->name, $timeout);
         if ($pheanstalkJob === null || $pheanstalkJob === false) {
             return null;
