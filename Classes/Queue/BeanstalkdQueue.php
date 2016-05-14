@@ -20,6 +20,7 @@ use TYPO3\Jobqueue\Queue\QueueInterface;
 use Pheanstalk\Exception\ServerException;
 use Pheanstalk\Pheanstalk;
 use Pheanstalk\PheanstalkInterface;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 
 /**
  * BeanstalkdQueue
@@ -53,9 +54,8 @@ class BeanstalkdQueue implements QueueInterface
     public function __construct($name, $options)
     {
         $this->name = $name;
-        $this->options = (array) $options + $this->options;
-
-        $this->client = new Pheanstalk($this->options['host'], $this->options['port'], $this->options['timeout']);
+        ArrayUtility::mergeRecursiveWithOverrule($this->options, $options, true, false);
+        $this->client = new Pheanstalk($this->options['host'], $this->options['port']);
     }
 
     /**
@@ -78,6 +78,9 @@ class BeanstalkdQueue implements QueueInterface
         if ($timeout === null) {
             $timeout = $this->options['timeout'];
         }
+        /** @var \TYPO3\CMS\Core\Log\Logger $logger */
+        $logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Log\LogManager::class)->getLogger(__CLASS__);
+        $logger->info("B $timeout");
         $pheanstalkJob = $this->client->reserveFromTube($this->name, $timeout);
         if ($pheanstalkJob === null || $pheanstalkJob === false) {
             return null;
