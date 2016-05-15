@@ -43,7 +43,7 @@ class BeanstalkdQueue implements QueueInterface
     protected $options = [
         'host' => '127.0.0.1',
         'port' => PheanstalkInterface::DEFAULT_PORT,
-        'timeout' => null,
+        'timeout' => 1,
     ];
     /**
      * Constructor
@@ -51,10 +51,10 @@ class BeanstalkdQueue implements QueueInterface
      * @param string $name
      * @param array  $options
      */
-    public function __construct($name, array $options)
+    public function __construct($name, array $options = array())
     {
         $this->name = $name;
-        ArrayUtility::mergeRecursiveWithOverrule($this->options, (array) $options, true, false);
+        ArrayUtility::mergeRecursiveWithOverrule($this->options, $options, true, false);
         $this->client = new Pheanstalk($this->options['host'], $this->options['port']);
     }
 
