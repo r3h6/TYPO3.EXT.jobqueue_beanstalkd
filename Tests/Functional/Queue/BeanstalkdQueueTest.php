@@ -1,5 +1,5 @@
 <?php
-namespace TYPO3\JobqueueBeanstalkd\Tests\Functional\Queue;
+namespace R3H6\JobqueueBeanstalkd\Tests\Functional\Queue;
 
 /*                                                                        *
  * This script is part of the TYPO3 project - inspiring people to share!  *
@@ -15,8 +15,8 @@ namespace TYPO3\JobqueueBeanstalkd\Tests\Functional\Queue;
  *                                                                        */
 
 use Pheanstalk\Pheanstalk;
-use TYPO3\JobqueueBeanstalkd\Queue\BeanstalkdQueue;
-use TYPO3\Jobqueue\Queue\Message;
+use R3H6\JobqueueBeanstalkd\Queue\BeanstalkdQueue;
+use R3H6\Jobqueue\Queue\Message;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -36,7 +36,7 @@ class BeanstalkdQueueTest extends \TYPO3\CMS\Core\Tests\FunctionalTestCase
     protected $objectManager;
 
     /**
-     * @var TYPO3\JobqueueBeanstalkd\Queue\BeanstalkdQueue
+     * @var R3H6\JobqueueBeanstalkd\Queue\BeanstalkdQueue
      */
     protected $queue;
 

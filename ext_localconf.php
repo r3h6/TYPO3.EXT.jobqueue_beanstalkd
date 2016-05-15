@@ -7,7 +7,7 @@ if (!is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['jobqueue'])) {
     $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['jobqueue'] = [];
 }
 
-$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['jobqueue']['TYPO3\\JobqueueBeanstalkd\\Queue\\BeanstalkdQueue'] = [
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['jobqueue']['R3H6\\JobqueueBeanstalkd\\Queue\\BeanstalkdQueue'] = [
     'options' => (array) unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY]),
 ];
 

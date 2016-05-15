@@ -1,6 +1,6 @@
 <?php
 
-namespace TYPO3\JobqueueBeanstalkd\Queue;
+namespace R3H6\JobqueueBeanstalkd\Queue;
 
 /*                                                                        *
  * This script is part of the TYPO3 project - inspiring people to share!  *
@@ -15,8 +15,8 @@ namespace TYPO3\JobqueueBeanstalkd\Queue;
  * Public License for more details.                                       *
  *                                                                        */
 
-use TYPO3\Jobqueue\Queue\Message;
-use TYPO3\Jobqueue\Queue\QueueInterface;
+use R3H6\Jobqueue\Queue\Message;
+use R3H6\Jobqueue\Queue\QueueInterface;
 use Pheanstalk\Exception\ServerException;
 use Pheanstalk\Pheanstalk;
 use Pheanstalk\PheanstalkInterface;
@@ -121,7 +121,7 @@ class BeanstalkdQueue implements QueueInterface
 
     /**
      * @param int $limit
-     * @return array<\TYPO3\Jobqueue\Queue\Message>
+     * @return array<\R3H6\Jobqueue\Queue\Message>
      */
     public function peek($limit = 1)
     {
@@ -191,7 +191,7 @@ class BeanstalkdQueue implements QueueInterface
      * Updates the original value property of the message to resemble the
      * encoded representation.
      *
-     * @param TYPO3\Jobqueue\Queue\Message $message
+     * @param R3H6\Jobqueue\Queue\Message $message
      * @return string
      */
     protected function encodeMessage(Message $message)
@@ -204,7 +204,7 @@ class BeanstalkdQueue implements QueueInterface
      * Decode a message from a string representation
      *
      * @param string $value
-     * @return TYPO3\Jobqueue\Queue\Message
+     * @return R3H6\Jobqueue\Queue\Message
      */
     protected function decodeMessage($value)
     {

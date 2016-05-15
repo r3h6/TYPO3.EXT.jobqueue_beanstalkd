@@ -25,7 +25,7 @@ If not, the provided pheanstalk phar archive will be used instead, perhaps this 
 Configuration
 -------------
 
-In order to use this queue you should set the *defaultQueue* to ``TYPO3\JobqueueBeanstalkd\Queue\BeanstalkdQueue`` in the *jobqueue* extension settings.
+In order to use this queue you should set the *defaultQueue* to ``R3H6\JobqueueBeanstalkd\Queue\BeanstalkdQueue`` in the *jobqueue* extension settings.
 
 
 Contributing
