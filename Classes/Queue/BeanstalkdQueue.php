@@ -51,10 +51,10 @@ class BeanstalkdQueue implements QueueInterface
      * @param string $name
      * @param array  $options
      */
-    public function __construct($name, $options)
+    public function __construct($name, array $options)
     {
         $this->name = $name;
-        ArrayUtility::mergeRecursiveWithOverrule($this->options, $options, true, false);
+        ArrayUtility::mergeRecursiveWithOverrule($this->options, (array) $options, true, false);
         $this->client = new Pheanstalk($this->options['host'], $this->options['port']);
     }
 

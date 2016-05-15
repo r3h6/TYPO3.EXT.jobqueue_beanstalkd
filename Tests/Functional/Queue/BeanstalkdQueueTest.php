@@ -40,17 +40,6 @@ class BeanstalkdQueueTest extends \TYPO3\CMS\Core\Tests\FunctionalTestCase
      */
     protected $queue;
 
-    // {{{ Bugfix phpunit
-    protected $disallowChangesToGlobalState = null;
-
-    public function setDisallowChangesToGlobalState($disallowChangesToGlobalState)
-    {
-        if (is_null($this->disallowChangesToGlobalState) && is_bool($disallowChangesToGlobalState)) {
-            $this->disallowChangesToGlobalState = $disallowChangesToGlobalState;
-        }
-    }
-    // }}}
-
     /**
      * Set up dependencies
      */
@@ -59,9 +48,7 @@ class BeanstalkdQueueTest extends \TYPO3\CMS\Core\Tests\FunctionalTestCase
         parent::setUp();
         $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 
-        // $a = new BeanstalkdQueue();
-
-        $this->queue = $this->objectManager->get(BeanstalkdQueue::class, self::QUEUE_NAME, null);
+        $this->queue = $this->objectManager->get(BeanstalkdQueue::class, self::QUEUE_NAME, []);
 
        /** @var Pheanstalk\Pheanstalk $client */
         $client = $this->queue->getClient();
