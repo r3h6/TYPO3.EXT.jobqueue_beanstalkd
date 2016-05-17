@@ -149,7 +149,12 @@ class BeanstalkdQueue implements QueueInterface
     public function getMessage($identifier)
     {
         $pheanstalkJob = $this->client->peek($identifier);
-        return $this->decodeMessage($pheanstalkJob->getData());
+        if ($pheanstalkJob === null || $pheanstalkJob === false) {
+            return null;
+        }
+        $message = $this->decodeMessage($pheanstalkJob->getData());
+        $message->setIdentifier($pheanstalkJob->getId());
+        return $message;
     }
 
     /**
