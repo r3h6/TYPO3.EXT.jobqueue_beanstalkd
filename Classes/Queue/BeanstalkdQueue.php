@@ -46,10 +46,7 @@ class BeanstalkdQueue implements QueueInterface
         'timeout' => 1,
     ];
     /**
-     * Constructor
-     *
-     * @param string $name
-     * @param array  $options
+     * {@inheritdoc}
      */
     public function __construct($name, array $options = array())
     {
@@ -59,7 +56,7 @@ class BeanstalkdQueue implements QueueInterface
     }
 
     /**
-     * @param Message $message
+     * {@inheritdoc}
      */
     public function publish(Message $message)
     {
@@ -70,8 +67,7 @@ class BeanstalkdQueue implements QueueInterface
     }
 
     /**
-     * @param int $timeout
-     * @return Message
+     * {@inheritdoc}
      */
     public function waitAndTake($timeout = null)
     {
@@ -90,8 +86,7 @@ class BeanstalkdQueue implements QueueInterface
     }
 
     /**
-     * @param int $timeout
-     * @return Message
+     * {@inheritdoc}
      */
     public function waitAndReserve($timeout = null)
     {
@@ -109,7 +104,7 @@ class BeanstalkdQueue implements QueueInterface
     }
 
     /**
-     * @param Message $message
+     * {@inheritdoc}
      */
     public function finish(Message $message)
     {
@@ -121,8 +116,7 @@ class BeanstalkdQueue implements QueueInterface
     }
 
     /**
-     * @param int $limit
-     * @return array<\R3H6\Jobqueue\Queue\Message>
+     * {@inheritdoc}
      */
     public function peek($limit = 1)
     {
@@ -159,7 +153,7 @@ class BeanstalkdQueue implements QueueInterface
     }
 
     /**
-     * @return int
+     * {@inheritdoc}
      */
     public function count()
     {
@@ -168,7 +162,7 @@ class BeanstalkdQueue implements QueueInterface
     }
 
     /**
-     * @return array
+     * {@inheritdoc}
      */
     public function getOptions()
     {
@@ -176,7 +170,7 @@ class BeanstalkdQueue implements QueueInterface
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getName()
     {
