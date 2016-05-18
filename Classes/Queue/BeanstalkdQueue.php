@@ -64,7 +64,7 @@ class BeanstalkdQueue implements QueueInterface
     public function publish(Message $message)
     {
         $encodedMessage = $this->encodeMessage($message);
-        $messageIdentifier = $this->client->putInTube($this->name, $encodedMessage, $message->getDelay());
+        $messageIdentifier = $this->client->putInTube($this->name, $encodedMessage, Pheanstalk::DEFAULT_PRIORITY, $message->getDelay());
         $message->setIdentifier($messageIdentifier);
         $message->setState(Message::STATE_PUBLISHED);
     }
