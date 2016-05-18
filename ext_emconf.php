@@ -28,6 +28,7 @@ $EM_CONF[$_EXTKEY] = array(
 			'jobqueue' => '1.0.0-1.99.99',
 		),
 		'conflicts' => array(
+			'jobqueue_redis' => '1.0.0',
 		),
 		'suggests' => array(
 		),
