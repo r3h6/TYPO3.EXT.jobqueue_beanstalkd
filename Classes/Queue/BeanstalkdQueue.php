@@ -104,6 +104,7 @@ class BeanstalkdQueue implements QueueInterface
         }
         $message = $this->decodeMessage($pheanstalkJob->getData());
         $message->setIdentifier($pheanstalkJob->getId());
+        $message->setState(Message::STATE_RESERVED);
         return $message;
     }
 
