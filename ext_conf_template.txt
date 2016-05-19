@@ -1,5 +1,5 @@
-# cat=jobqueue//20 type=text; label=Beanstalkd host
+# cat=jobqueue//20 type=text; label=LLL:EXT:jobqueue_beanstalkd/Resources/Private/Language/locallang_be.xlf:configuration.host
 host =
 
-# cat=jobqueue//20 type=text; label=Beanstalkd port
+# cat=jobqueue//20 type=text; label=LLL:EXT:jobqueue_beanstalkd/Resources/Private/Language/locallang_be.xlf:configuration.port
 port =

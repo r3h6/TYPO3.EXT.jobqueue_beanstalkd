@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2016-05-18T16:28:39Z" product-name="jobqueue_beanstalkd">
+        <header/>
+        <body>
+            <trans-unit id="configuration.host">
+                <source>Beanstalkd host: Default host for beanstalkd queues.</source>
+            </trans-unit>
+            <trans-unit id="configuration.port">
+                <source>Beanstalkd port: Default port for beanstalkd queues.</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

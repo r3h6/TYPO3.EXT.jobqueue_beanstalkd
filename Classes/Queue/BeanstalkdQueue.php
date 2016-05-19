@@ -46,10 +46,7 @@ class BeanstalkdQueue implements QueueInterface
         'timeout' => 1,
     ];
     /**
-     * Constructor
-     *
-     * @param string $name
-     * @param array  $options
+     * {@inheritdoc}
      */
     public function __construct($name, array $options = array())
     {
@@ -59,19 +56,18 @@ class BeanstalkdQueue implements QueueInterface
     }
 
     /**
-     * @param Message $message
+     * {@inheritdoc}
      */
     public function publish(Message $message)
     {
         $encodedMessage = $this->encodeMessage($message);
-        $messageIdentifier = $this->client->putInTube($this->name, $encodedMessage, $message->getDelay());
+        $messageIdentifier = $this->client->putInTube($this->name, $encodedMessage, Pheanstalk::DEFAULT_PRIORITY, $message->getDelay());
         $message->setIdentifier($messageIdentifier);
         $message->setState(Message::STATE_PUBLISHED);
     }
 
     /**
-     * @param int $timeout
-     * @return Message
+     * {@inheritdoc}
      */
     public function waitAndTake($timeout = null)
     {
@@ -90,8 +86,7 @@ class BeanstalkdQueue implements QueueInterface
     }
 
     /**
-     * @param int $timeout
-     * @return Message
+     * {@inheritdoc}
      */
     public function waitAndReserve($timeout = null)
     {
@@ -104,11 +99,12 @@ class BeanstalkdQueue implements QueueInterface
         }
         $message = $this->decodeMessage($pheanstalkJob->getData());
         $message->setIdentifier($pheanstalkJob->getId());
+        $message->setState(Message::STATE_RESERVED);
         return $message;
     }
 
     /**
-     * @param Message $message
+     * {@inheritdoc}
      */
     public function finish(Message $message)
     {
@@ -120,8 +116,7 @@ class BeanstalkdQueue implements QueueInterface
     }
 
     /**
-     * @param int $limit
-     * @return array<\R3H6\Jobqueue\Queue\Message>
+     * {@inheritdoc}
      */
     public function peek($limit = 1)
     {
@@ -158,7 +153,7 @@ class BeanstalkdQueue implements QueueInterface
     }
 
     /**
-     * @return int
+     * {@inheritdoc}
      */
     public function count()
     {
@@ -167,7 +162,7 @@ class BeanstalkdQueue implements QueueInterface
     }
 
     /**
-     * @return array
+     * {@inheritdoc}
      */
     public function getOptions()
     {
@@ -175,7 +170,7 @@ class BeanstalkdQueue implements QueueInterface
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getName()
     {

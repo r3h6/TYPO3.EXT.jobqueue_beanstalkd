@@ -26,6 +26,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class BeanstalkdQueueTest extends \TYPO3\CMS\Core\Tests\FunctionalTestCase
 {
     use \R3H6\Jobqueue\Tests\Functional\Queue\QueueTestTrait;
+    use \R3H6\Jobqueue\Tests\Functional\Queue\QueueDelayTestTrait;
 
     const QUEUE_NAME = 'TestQueue';
 
