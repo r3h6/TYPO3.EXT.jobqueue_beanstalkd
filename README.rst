@@ -18,6 +18,8 @@ This extension is a backport of the flow package `Flowpack/jobqueue-beanstalkd <
 Installation
 ------------
 
+This extension requires the `jobqueue <https://typo3.org/extensions/repository/view/jobqueue/>`_ extension.
+
 If you are using composer you can also require the package ``"pda/pheanstalk": "^3.0"``.
 If not, the provided pheanstalk phar archive will be used instead, perhaps this is not the most recent version of the library.
 

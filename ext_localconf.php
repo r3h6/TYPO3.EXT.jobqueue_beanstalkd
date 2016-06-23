@@ -12,5 +12,5 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['jobqueue']['R3H6\\JobqueueBeanstalkd\\Qu
 ];
 
 if (!class_exists('Pheanstalk\\Pheanstalk', true)) {
-    require_once \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('EXT:' . $_EXTKEY . '/Resources/Private/Vendors/pheanstalk.phar');
+    require_once 'phar://' . \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('EXT:' . $_EXTKEY . '/Resources/Private/Vendors/pheanstalk.phar/autoload.php');
 }
