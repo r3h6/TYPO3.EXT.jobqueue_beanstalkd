@@ -29,6 +29,9 @@ cache:
     - $HOME/.composer/cache
 
 before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq beanstalkd
+  - sudo beanstalkd -d -l 127.0.0.1 -p 11300
   - phpenv config-rm xdebug.ini
   - composer self-update
   - composer --version
@@ -40,11 +43,6 @@ before_script:
   - export TYPO3_PATH_WEB=$PWD/.Build/web
 
 script:
-  - >
-    echo;
-    echo "Running unit tests";
-    .Build/bin/phpunit -c .Build/vendor/nimut/testing-framework/res/Configuration/UnitTests.xml Tests/Unit/
-
   - >
     echo;
     echo "Running php lint";
